@@ -12,7 +12,8 @@ import {
   providedIn: 'root'
 })
 export class CurrencyService {
-  private apiUrl = 'http://localhost:3000/api/currency';
+  private apiUrl = 'https://currency-converter-roan-chi.vercel.app/api/currency'; // for vercal
+  // private apiUrl = 'http://localhost:3000/api/currency'; // for local
 
   constructor(private http: HttpClient) { }
 
