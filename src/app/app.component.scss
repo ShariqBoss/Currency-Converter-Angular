@@ -1,0 +1,18 @@
+h1 {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+}

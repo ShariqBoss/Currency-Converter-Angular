@@ -1,0 +1,93 @@
+<mat-card class="currency-card">
+  <mat-card-header>
+    <mat-card-title>Currency Converter</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <form [formGroup]="currencyForm" (ngSubmit)="convertCurrency()">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" formControlName="amount" min="0" step="0.01">
+            <mat-error *ngIf="currencyForm.get('amount')?.hasError('required')">
+              Amount is required
+            </mat-error>
+            <mat-error *ngIf="currencyForm.get('amount')?.hasError('min')">
+              Amount must be greater than 0
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <div class="col-12 col-md-5 mb-3">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>From Currency</mat-label>
+            <mat-select formControlName="fromCurrency">
+              <mat-option *ngFor="let currency of currencies" [value]="currency.code">
+                {{ currency.code }} - {{ currency.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="currencyForm.get('fromCurrency')?.hasError('required')">
+              From currency is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <div class="col-12 col-md-2 mb-3 d-flex align-items-center justify-content-center">
+          <button type="button" mat-icon-button (click)="swapCurrencies()" 
+                  [disabled]="loading || currencies.length === 0" 
+                  class="swap-button" aria-label="Swap currencies">
+            <mat-icon>swap_horiz</mat-icon>
+          </button>
+        </div>
+        
+        <div class="col-12 col-md-5 mb-3">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>To Currency</mat-label>
+            <mat-select formControlName="toCurrency">
+              <mat-option *ngFor="let currency of currencies" [value]="currency.code">
+                {{ currency.code }} - {{ currency.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="currencyForm.get('toCurrency')?.hasError('required')">
+              To currency is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-12 text-center">
+          <button mat-raised-button color="primary" type="submit" 
+                  [disabled]="loading || currencyForm.invalid || currencies.length === 0"
+                  class="convert-button">
+            <span *ngIf="!loading">Convert</span>
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+          </button>
+        </div>
+      </div>
+    </form>
+    
+    <div *ngIf="error" class="alert alert-danger mt-3" role="alert">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="convertedAmount !== null && conversionRate !== null" class="result-section mt-4">
+      <div class="result-card p-3 rounded">
+        <h4 class="text-center mb-3">Conversion Result</h4>
+        <div class="result-details">
+          <p class="text-center">
+            <span class="amount">{{ currencyForm.get('amount')?.value }}</span>
+            <span class="currency-code">{{ currencyForm.get('fromCurrency')?.value }}</span>
+            <span class="equals"> = </span>
+            <span class="amount converted">{{ convertedAmount | number:'1.2-2' }}</span>
+            <span class="currency-code">{{ currencyForm.get('toCurrency')?.value }}</span>
+          </p>
+          <p class="text-center rate">
+            1 {{ currencyForm.get('fromCurrency')?.value }} = {{ conversionRate | number:'1.4-6' }} {{ currencyForm.get('toCurrency')?.value }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

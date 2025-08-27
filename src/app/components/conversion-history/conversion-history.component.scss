@@ -1,0 +1,129 @@
+.history-card {
+  height: 100%;
+}
+
+.mat-select-panel {
+  max-height: 250px !important;
+}
+
+.history-item {
+  border-bottom: 1px solid #e0e0e0;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.history-content {
+  width: 100%;
+  
+  .conversion-details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    
+    .amount {
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-right: 5px;
+    }
+    
+    .converted {
+      font-size: 1.2rem;
+    }
+    
+    .currency {
+      margin: 0 5px;
+      font-weight: 500;
+    }
+    
+    .arrow-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+      margin: 0 5px;
+    }
+  }
+  
+  .conversion-meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+    .rate {
+      font-size: 0.85rem;
+      color: var(--secondary-color);
+    }
+    
+    .date {
+      font-size: 0.85rem;
+      color: var(--secondary-color);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .history-content {
+    .conversion-details {
+      .amount {
+        font-size: 0.9rem;
+      }
+      
+      .converted {
+        font-size: 1rem;
+      }
+      
+      .currency {
+        font-size: 0.9rem;
+      }
+      
+      .arrow-icon {
+        font-size: 14px;
+        height: 14px;
+        width: 14px;
+      }
+    }
+    
+    .conversion-meta {
+      .rate, .date {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .history-content {
+    .conversion-details {
+      .amount {
+        font-size: 0.8rem;
+      }
+      
+      .converted {
+        font-size: 0.9rem;
+      }
+      
+      .currency {
+        font-size: 0.8rem;
+      }
+      
+      .arrow-icon {
+        font-size: 12px;
+        height: 12px;
+        width: 12px;
+        margin: 0 3px;
+      }
+    }
+    
+    .conversion-meta {
+      .rate, .date {
+        font-size: 0.7rem;
+      }
+    }
+  }
+  
+  .mat-list-item {
+    padding: 8px 0;
+  }
+}

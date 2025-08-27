@@ -1,0 +1,53 @@
+<mat-card class="history-card">
+  <mat-card-header>
+    <mat-card-title>Conversion History</mat-card-title>
+    <mat-card-subtitle>Your recent currency conversions</mat-card-subtitle>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <button mat-button (click)="refreshHistory()" [disabled]="loading">
+        <mat-icon>refresh</mat-icon>
+        Refresh
+      </button>
+      <button mat-button color="warn" (click)="clearHistory()" 
+              [disabled]="history.length === 0 || loading">
+        <mat-icon>delete</mat-icon>
+        Clear All
+      </button>
+    </div>
+    
+    <div *ngIf="loading" class="text-center my-4">
+      <mat-spinner diameter="40" class="mx-auto"></mat-spinner>
+      <p>Loading history...</p>
+    </div>
+    
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!loading && history?.length === 0" class="text-center my-4">
+      <p class="text-muted">No conversion history yet. Perform a conversion to see it here.</p>
+    </div>
+    
+    <div *ngIf="!loading && history.length > 0">
+      <mat-list>
+        <mat-list-item *ngFor="let item of history" class="history-item">
+          <div class="history-content w-100">
+            <div class="conversion-details d-flex align-items-center">
+              <span class="amount">{{ item.amount | number:'1.2-2' }}</span>
+              <span class="currency">{{ item.from }}</span>
+              <mat-icon class="arrow-icon mx-2">arrow_forward</mat-icon>
+              <span class="amount converted">{{ item.convertedAmount | number:'1.2-2' }}</span>
+              <span class="currency">{{ item.to }}</span>
+            </div>
+            <div class="conversion-meta d-flex justify-content-between mt-2">
+              <span class="rate">Rate: {{ item.rate | number:'1.4-6' }}</span>
+              <span class="date">{{ formatDate(item.timestamp) }}</span>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card-content>
+</mat-card>
